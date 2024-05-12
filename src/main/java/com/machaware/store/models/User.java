@@ -32,5 +32,5 @@ public class User {
 	private String password;
 
 	@Column(name = "rol")
-	private Rol rol;
+	private String rol;
 }

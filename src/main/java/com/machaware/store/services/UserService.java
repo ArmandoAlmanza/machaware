@@ -18,10 +18,6 @@ public class UserService {
 		return (List<User>) userRepository.findAll();
 	}
 
-	public User getUserEmail(String email) {
-		return userRepository.findbyEmail(email).orElseThrow();
-	}
-
 	public User getUserId(Long id) {
 		return userRepository.findById(id).orElseThrow();
 	}
