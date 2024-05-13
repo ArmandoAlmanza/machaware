@@ -27,7 +27,7 @@ public class UserService {
 		if (user.isPresent()) {
 			userDTO.setName(user.get().getFirstName() + " " + user.get().getLastName());
 			userDTO.setEmail(user.get().getEmail());
-			userDTO.setRol(user.get().getRol());
+			userDTO.setRol(String.valueOf(user.get().getRol()));
 			return new ResponseEntity<>(userDTO, HttpStatus.OK);
 		}
 		return new ResponseEntity<>("User not faounded", HttpStatus.NOT_FOUND);

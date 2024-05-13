@@ -2,6 +2,8 @@ package com.machaware.store.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -32,5 +34,6 @@ public class User {
 	private String password;
 
 	@Column(name = "rol")
-	private String rol;
+	@Enumerated(EnumType.STRING)
+	private Rol rol;
 }
