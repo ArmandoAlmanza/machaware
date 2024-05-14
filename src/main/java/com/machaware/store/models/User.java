@@ -22,25 +22,25 @@ import lombok.Setter;
 @Table(name = "users")
 public class User {
 
-	@NotNull
+	@NotNull(message = "{NotNull.user.id}")
 	@Id
 	private Long id;
 
-	@NotBlank
+	@NotBlank(message = "{NotBlank.user.first_name}")
 	@Size(min = 3, max = 25)
 	@Column(name = "first_name")
 	private String firstName;
 
-	@NotBlank
+	@NotBlank(message = "{NotBlank.user.last_name}")
 	@Size(min = 5, max = 30)
 	@Column(name = "last_name")
 	private String lastName;
 
-	@NotBlank
+	@NotBlank(message = "{NotBlank.user.email}")
 	@Column(name = "email")
 	private String email;
 
-	@NotBlank
+	@NotBlank(message = "{NotBlank.user.password}")
 	@Column(name = "password")
 	private String password;
 
