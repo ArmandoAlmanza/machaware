@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.machaware.store.models.User;
+import com.machaware.store.models.DTO.UserDTO;
 import com.machaware.store.services.UserService;
 import com.machaware.store.utils.Validator;
 
@@ -29,7 +30,7 @@ public class UserController {
 	private Validator validator = new Validator();
 
 	@GetMapping()
-	public List<User> getAllUSers() {
+	public List<UserDTO> getAllUSers() {
 		return userService.getAllUSers();
 	}
 
