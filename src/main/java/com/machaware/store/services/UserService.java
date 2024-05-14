@@ -2,6 +2,7 @@ package com.machaware.store.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,18 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 
-	public List<User> getAllUSers() {
-		return (List<User>) repository.findAll();
+	public List<UserDTO> getAllUSers() {
+		List<User> allUsers = (List<User>) repository.findAll();
+
+		return allUsers.stream()
+				.map(user -> {
+					UserDTO userDTO = new UserDTO();
+					userDTO.setName(user.getFirstName() + " " + user.getLastName());
+					userDTO.setEmail(user.getEmail());
+					userDTO.setRol(String.valueOf(user.getRol()));
+					return userDTO;
+				})
+				.collect(Collectors.toList());
 	}
 
 	public ResponseEntity<?> getUserId(Long id) {
@@ -34,6 +45,10 @@ public class UserService {
 	}
 
 	public ResponseEntity<?> createUser(User user) {
+		Optional<User> userDB = repository.findById(user.getId());
+		if (userDB.isPresent()) {
+			return new ResponseEntity<>("The user is already created", HttpStatus.BAD_REQUEST);
+		}
 		repository.save(user);
 		return new ResponseEntity<>("User added succesfully", HttpStatus.CREATED);
 	}
@@ -55,7 +70,6 @@ public class UserService {
 		}
 		return new ResponseEntity<>("User not founded", HttpStatus.NOT_FOUND);
 	}
-
 
 	public ResponseEntity<?> delete(Long id) {
 		Optional<User> userDB = repository.findById(id);
