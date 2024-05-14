@@ -55,4 +55,11 @@ public class UserService {
 		}
 		return new ResponseEntity<>("User not founded", HttpStatus.NOT_FOUND);
 	}
+
+
+	public ResponseEntity<?> delete(Long id) {
+		Optional<User> userDB = repository.findById(id);
+		userDB.ifPresent(user -> repository.delete(user));
+		return new ResponseEntity<>("User deleted", HttpStatus.OK);
+	}
 }
