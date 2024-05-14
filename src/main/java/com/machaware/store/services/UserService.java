@@ -56,7 +56,7 @@ public class UserService {
 	public ResponseEntity<?> update(Long id, User user) {
 		Optional<User> userDB = repository.findById(id);
 		if (userDB.isPresent()) {
-			User userUpdated = userDB.orElseThrow();
+			User userUpdated = userDB.get();
 
 			userUpdated.setId(user.getId());
 			userUpdated.setFirstName(user.getFirstName());
