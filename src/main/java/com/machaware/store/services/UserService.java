@@ -44,6 +44,18 @@ public class UserService {
 		return new ResponseEntity<>("User not faounded", HttpStatus.NOT_FOUND);
 	}
 
+	public ResponseEntity<?> getUserEmail(String email) {
+		Optional<User> user = repository.findByEmail(email);
+		UserDTO userDTO = new UserDTO();
+		if (user.isPresent()) {
+			userDTO.setName(user.get().getFirstName() + " " + user.get().getLastName());
+			userDTO.setEmail(user.get().getEmail());
+			userDTO.setRol(String.valueOf(user.get().getRol()));
+			return new ResponseEntity<>(userDTO, HttpStatus.OK);
+		}
+		return new ResponseEntity<>("User not faounded", HttpStatus.NOT_FOUND);
+	}
+
 	public ResponseEntity<?> createUser(User user) {
 		Optional<User> userDB = repository.findById(user.getId());
 		if (userDB.isPresent()) {

@@ -39,6 +39,11 @@ public class UserController {
 		return userService.getUserId(id);
 	}
 
+	@GetMapping("/email/{email}")
+	public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
+		return userService.getUserEmail(email);
+	}
+
 	@PostMapping()
 	public ResponseEntity<?> createUser(@Valid @RequestBody User user, BindingResult result) {
 		if (result.hasErrors()) {
