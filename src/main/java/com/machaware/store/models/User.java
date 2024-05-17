@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -46,5 +47,10 @@ public class User {
 
 	@Column(name = "rol")
 	@Enumerated(EnumType.STRING)
-	private Rol rol = Rol.USER;
+	private Rol rol;
+
+	@PrePersist
+	public void prePersist() {
+		rol = Rol.USER;
+	}
 }
