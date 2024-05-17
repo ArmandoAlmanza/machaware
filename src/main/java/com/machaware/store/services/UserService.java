@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.machaware.store.models.User;
@@ -17,6 +18,8 @@ import com.machaware.store.repositories.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository repository;
+
+	private PasswordEncoder passwordEncoder;
 
 	public List<UserDTO> getAllUSers() {
 		List<User> allUsers = (List<User>) repository.findAll();
@@ -61,6 +64,9 @@ public class UserService {
 		if (userDB.isPresent()) {
 			return new ResponseEntity<>("The user is already created", HttpStatus.BAD_REQUEST);
 		}
+
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+
 		repository.save(user);
 		return new ResponseEntity<>("User added succesfully", HttpStatus.CREATED);
 	}
