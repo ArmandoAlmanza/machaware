@@ -80,7 +80,7 @@ public class UserService {
 			userUpdated.setFirstName(user.getFirstName());
 			userUpdated.setLastName(user.getLastName());
 			userUpdated.setId(user.getId());
-			userUpdated.setPassword(user.getPassword());
+			userUpdated.setPassword(passwordEncoder.encode(user.getPassword()));
 
 			repository.save(userUpdated);
 			return new ResponseEntity<>("User Updated " + userUpdated, HttpStatus.CREATED);
