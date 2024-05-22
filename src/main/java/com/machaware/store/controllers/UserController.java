@@ -3,6 +3,7 @@ package com.machaware.store.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.machaware.store.models.Rol;
 import com.machaware.store.models.User;
 import com.machaware.store.models.DTO.UserDTO;
 import com.machaware.store.services.UserService;
@@ -42,6 +43,12 @@ public class UserController {
 	@GetMapping("/email/{email}")
 	public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
 		return userService.getUserEmail(email);
+	}
+
+	@PostMapping("/register")
+	public ResponseEntity<?> register(@Valid @RequestBody User user, BindingResult result) {
+		user.setRol(Rol.USER);
+		return createUser(user, result);
 	}
 
 	@PostMapping()
