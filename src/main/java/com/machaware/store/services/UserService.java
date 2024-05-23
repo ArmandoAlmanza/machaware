@@ -19,6 +19,7 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	public List<UserDTO> getAllUSers() {
@@ -60,11 +61,6 @@ public class UserService {
 	}
 
 	public ResponseEntity<?> createUser(User user) {
-		Optional<User> userDB = repository.findById(user.getId());
-		if (userDB.isPresent()) {
-			return new ResponseEntity<>("The user is already created", HttpStatus.BAD_REQUEST);
-		}
-
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 		repository.save(user);
@@ -93,5 +89,9 @@ public class UserService {
 		Optional<User> userDB = repository.findById(id);
 		userDB.ifPresent(user -> repository.delete(user));
 		return new ResponseEntity<>("User deleted", HttpStatus.OK);
+	}
+
+	public boolean findByEmail(String email) {
+		return repository.findByEmail(email).isPresent();
 	}
 }

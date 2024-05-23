@@ -1,5 +1,7 @@
 package com.machaware.store.models;
 
+import com.machaware.store.utils.UserValidation;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -39,6 +41,7 @@ public class User {
 
 	@NotBlank(message = "{NotBlank.user.email}")
 	@Column(name = "email")
+	@UserValidation
 	private String email;
 
 	@NotBlank(message = "{NotBlank.user.password}")
