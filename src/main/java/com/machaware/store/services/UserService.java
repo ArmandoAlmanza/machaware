@@ -61,6 +61,10 @@ public class UserService {
 	}
 
 	public ResponseEntity<?> createUser(User user) {
+		Optional<User> userDB = repository.findByEmail(user.getEmail());
+		if (userDB.isPresent()) {
+			return new ResponseEntity<>("The email is already in use", HttpStatus.NOT_FOUND);
+		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 		repository.save(user);

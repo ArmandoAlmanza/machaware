@@ -41,7 +41,7 @@ public class User {
 
 	@NotBlank(message = "{NotBlank.user.email}")
 	@Column(name = "email")
-	@UserValidation
+	// @UserValidation
 	private String email;
 
 	@NotBlank(message = "{NotBlank.user.password}")
